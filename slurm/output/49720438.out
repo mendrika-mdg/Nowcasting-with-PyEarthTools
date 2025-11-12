@@ -1,0 +1,5 @@
+Node: gpuhost011.jc.rl.ac.uk
+Job ID: 49720438
+GPUs allocated: 0,1,2,3
+Starting distributed training...
+Training completed at Wed 12 Nov 17:59:38 GMT 2025

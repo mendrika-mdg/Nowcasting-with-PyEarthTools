@@ -1,0 +1,69 @@
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 10, in <module>
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 10, in <module>
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 10, in <module>
+        import xarray as xrimport xarray as xr
+
+ModuleNotFoundErrorModuleNotFoundError: : No module named 'xarray'No module named 'xarray'
+
+    import xarray as xr
+ModuleNotFoundError: No module named 'xarray'
+    import xarray as xr
+ModuleNotFoundError: No module named 'xarray'
+E1112 18:09:04.893000 1724726 torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 0 (pid: 1724747) of binary: /apps/jasmin/jaspy/miniforge_envs/jaspy3.12/mf3-25.3.0-3/bin/python
+Traceback (most recent call last):
+  File "/home/users/train110/venv/pet_dev_nb_gpu_jasmin/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2025-11-12_18:09:04
+  host      : gpuhost011.jc.rl.ac.uk
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 1724748)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2025-11-12_18:09:04
+  host      : gpuhost011.jc.rl.ac.uk
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 1724749)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2025-11-12_18:09:04
+  host      : gpuhost011.jc.rl.ac.uk
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 1724750)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-11-12_18:09:04
+  host      : gpuhost011.jc.rl.ac.uk
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1724747)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

@@ -1,0 +1,62 @@
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 46, in <module>
+    import site_archive_jasmin as saj                  
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'site_archive_jasmin'
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 46, in <module>
+    import site_archive_jasmin as saj                  
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'site_archive_jasmin'
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 46, in <module>
+    import site_archive_jasmin as saj                  
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'site_archive_jasmin'
+Traceback (most recent call last):
+  File "/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py", line 46, in <module>
+    import site_archive_jasmin as saj                  
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'site_archive_jasmin'
+W1112 18:15:29.891000 1725034 torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1725082 closing signal SIGTERM
+W1112 18:15:29.892000 1725034 torch/distributed/elastic/multiprocessing/api.py:908] Sending process 1725083 closing signal SIGTERM
+E1112 18:15:30.007000 1725034 torch/distributed/elastic/multiprocessing/api.py:882] failed (exitcode: 1) local_rank: 2 (pid: 1725084) of binary: /apps/jasmin/jaspy/miniforge_envs/jaspy3.12/mf3-25.3.0-3/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/run.py", line 940, in <module>
+    main()
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/run.py", line 936, in main
+    run(args)
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/run.py", line 927, in run
+    elastic_launch(
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 156, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/users/train110/.local/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 293, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+/home/users/train110/Nowcasting-with-PyEarthTools/script/3D-Unet-DDP.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2025-11-12_18:15:29
+  host      : gpuhost011.jc.rl.ac.uk
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 1725085)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-11-12_18:15:29
+  host      : gpuhost011.jc.rl.ac.uk
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 1725084)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

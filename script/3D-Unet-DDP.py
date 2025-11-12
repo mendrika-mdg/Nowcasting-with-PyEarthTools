@@ -3,7 +3,6 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Import datetime utilities
-import datetime
 from datetime import timedelta
 
 # Core libraries
@@ -11,12 +10,9 @@ import numpy as np
 import xarray as xr
 xr.set_options(file_cache_maxsize=2)
 
-# Plotting
-import matplotlib.pyplot as plt
-
 # PyEarthTools modules for data access and pipelines
 import pyearthtools.data as petdata
-from pyearthtools.data.time import TimeResolution, Petdt
+from pyearthtools.data.time import TimeResolution
 
 import pyearthtools.pipeline as petpipe
 from pyearthtools.pipeline.operation import Operation
@@ -35,9 +31,10 @@ from torch.utils.data import DataLoader, IterableDataset
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
+from pytorch_lightning.callbacks import EarlyStopping
+from pytorch_lightning.loggers import WandbLogger
 
-# Torchmetrics for optional evaluation
-import torchmetrics.image
+from functools import lru_cache
 
 # Set manual seed and precision
 torch.manual_seed(42)                                      
@@ -47,7 +44,7 @@ torch.set_float32_matmul_precision('medium')
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # Local import for JASMIN path configuration
-import site_archive_jasmin as saj                  
+import site_archive_jasmin as saj          #type: ignore         
 print(saj.ROOT_DIRECTORIES)
 
 # Select variables to load from Himawari archive
@@ -89,6 +86,8 @@ scales = {
 }
 
 # Function to build pipeline for a specific date range
+
+@lru_cache(maxsize=32)
 def make_pipeline(start_time, end_time, region=(-15.5, -8, 130, 135.5)):
 
     # Set temporal resolution to 10 minutes
@@ -128,9 +127,6 @@ def make_pipeline(start_time, end_time, region=(-15.5, -8, 130, 135.5)):
         # Ignore missing files or invalid datasets
         exceptions_to_ignore=(petdata.exceptions.DataNotFoundError, ValueError),
     )
-
-# Training pipeline (1 month)
-trainpipe = make_pipeline("20210601T0000", "20210701T0000")
 
 # 3D U-Net model definition for spatio-temporal nowcasting
 class UNet3D(nn.Module):
@@ -260,37 +256,62 @@ class PetNowcastIterableDataset(IterableDataset):
             y = torch.nan_to_num(y, nan=0.0, posinf=0.0, neginf=0.0)
             yield x, y
 
-# Validation pipeline (1 week)
-valpipe = make_pipeline("20210701T0000", "20210708T0000")
+
+# Training pipeline (1 year), Validation pipeline (1 week)
+trainpipe = make_pipeline("20210101T0000", "20220101T0000")
+valpipe   = make_pipeline("20220101T0000", "20220201T0000")
 
 # Prepare datasets and loaders
 train_ds = PetNowcastIterableDataset(trainpipe)
 val_ds   = PetNowcastIterableDataset(valpipe)
-train_loader = DataLoader(train_ds, batch_size=2, num_workers=0)
-val_loader   = DataLoader(val_ds, batch_size=2, num_workers=0)
+
+train_loader = DataLoader(
+    train_ds, batch_size=16, num_workers=8,
+    pin_memory=True, persistent_workers=True, prefetch_factor=4
+)
+val_loader = DataLoader(
+    val_ds, batch_size=16, num_workers=4,
+    pin_memory=True, persistent_workers=True, prefetch_factor=2
+)
 
 # Initialise Lightning model
-lit_model = NowcastLitModule(lr=1e-4)
+lit_model = NowcastLitModule(lr=2e-4)
+
+wandb_logger = WandbLogger(
+    project="pyearthtools-nowcasting",
+    name="unet3d_himawari_ddp",
+    save_dir="/gws/ssde/j25a/mmh_storage/train110/wandb_logs"
+)
+
+early_stop_cb = EarlyStopping(
+    monitor="val_loss",     # same metric as checkpoint
+    patience=5,             # stop after 3 epochs with no improvement
+    mode="min",
+    verbose=True
+)
 
 # Save checkpoints after each epoch
 checkpoint_cb = ModelCheckpoint(
-    dirpath="/home/users/train110/Nowcasting-with-PyEarthTools/model-weights",
+    dirpath="/gws/ssde/j25a/mmh_storage/train110/chk",
     filename="unet3d-ddp-nowcast-{epoch:02d}-{val_loss:.4f}",
     monitor="val_loss",
     mode="min",
     save_top_k=1
 )
-
 # Lightning trainer configuration
 trainer = pl.Trainer(
-    max_epochs=1,
+    max_epochs=5,
     accelerator="gpu",
-    devices=1,
+    devices=4,
+    strategy="ddp",
+    precision="16-mixed",
+    sync_batchnorm=True,
     log_every_n_steps=10,
     num_sanity_val_steps=0,
-    callbacks=[checkpoint_cb],
-    limit_train_batches=500,   # process 500 training batches only
-    limit_val_batches=25,  
+    logger=wandb_logger,
+    callbacks=[checkpoint_cb, early_stop_cb],
+    limit_train_batches=160,
+    limit_val_batches=10,
 )
 
 # Run training

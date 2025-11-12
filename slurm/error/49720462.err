@@ -1,0 +1,1 @@
+/var/spool/slurmd/job49720462/slurm_script: /home/users/train110/venv/pet_dev_nb_gpu_jasmin/bin/torchrun: /home/users/train110/venv/pet_dev_nb_gpu_jasmin/bin/python: bad interpreter: No such file or directory

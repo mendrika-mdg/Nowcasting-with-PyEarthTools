@@ -1,0 +1,13 @@
+Node: gpuhost010.jc.rl.ac.uk
+Job ID: 49723398
+GPUs allocated: 0,1,2,3
+/apps/jasmin/jaspy/miniforge_envs/jaspy3.12/mf3-25.3.0-3/bin/python
+/home/users/train110/venv/pet_dev_nb_gpu_jasmin/bin/torchrun
+pyearthtools             0.5.1
+pyearthtools-data        0.5.1
+pyearthtools-pipeline    0.5.1
+pyearthtools-training    0.5.1
+pyearthtools-utils       0.5.1
+pyearthtools-zoo         0.5.1
+Starting distributed training...
+Training completed at Wed 12 Nov 18:25:27 GMT 2025
