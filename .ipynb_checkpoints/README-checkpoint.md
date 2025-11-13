@@ -1,6 +1,6 @@
 # 3D U-Net Nowcasting of Cloud Optical Depth and Irradiance over Darwin
 
-This repository performs satellite-based nowcasting of **Cloud Optical Depth (COD)** and **Surface Global Irradiance (SGI)** over Darwin using **Himawari** data, **PyEarthTools**, **PyTorch**, and **PyTorch Lightning**.
+This repository performs satellite-based nowcasting of **Cloud Optical Depth (COD)** and **Surface Global Irradiance (SGI)** over Darwin using **Himawari** data, **PyEarthTools (PET)**, **PyTorch**, and **PyTorch Lightning**.
 
 ## Data Pipeline
 - Loads COD and SGI from the Himawari archive using PyEarthTools.
@@ -37,4 +37,4 @@ This repository performs satellite-based nowcasting of **Cloud Optical Depth (CO
 - Trainer limits: 200 training batches and 20 validation batches per epoch for up to 30 epochs.
 
 ## Summary
-In short, the repository provides a fully automated on-the-fly data pipeline and a 3D U-Net model to generate 1 h, 2 h, and 3 h nowcasts of COD and SGI using Himawari satellite imagery.
+This repository provides a complete on-the-fly satellite nowcasting pipeline built around **PyEarthTools**, enabling seamless retrieval, temporal windowing, preprocessing, and GPU-parallel streaming of Himawari data, combined with a 3D U-Net model that produces 1 h, 2 h, and 3 h forecasts of COD and SGI for the Darwin region.
