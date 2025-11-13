@@ -5,7 +5,7 @@ This repository performs satellite-based nowcasting of **Cloud Optical Depth (CO
 ## Data Pipeline
 - Loads COD and SGI from the Himawari archive using PyEarthTools.
 - Builds a **temporal window** of:
-  - 7 past frames: t−60, t−50, t−40, t−30, t−20, t−10, t₀  
+  - 7 past frames: t−60, t−50, t−40, t−30, t−20, t−10, t  
   - 3 future targets: t+60, t+120, t+180 minutes
 - Applies:
   - dataset sorting and coordinate alignment  

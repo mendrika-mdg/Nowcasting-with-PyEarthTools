@@ -1,2 +1,0 @@
-/apps/jasmin/jaspy/miniforge_envs/jaspy3.12/mf3-25.3.0-3/bin/python: can't open file '/home/users/train110/Nowcasting-with-PyEarthTools/slurm/ ': [Errno 2] No such file or directory
-/var/spool/slurmd/job49720687/slurm_script: line 40: -m: command not found
