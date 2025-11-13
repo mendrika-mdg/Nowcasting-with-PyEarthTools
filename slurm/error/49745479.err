@@ -1,0 +1,96 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+[rank0]:W1112 20:44:14.140000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 61 hash value: 17528070987312842408
+[rank1]:W1112 20:44:14.730000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+[rank3]:W1112 20:44:14.731000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+[rank2]:W1112 20:44:14.731000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+wandb: Currently logged in as: mgrakotomanga (mgrakotomanga-university-of-leeds) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run 1w71vj8c
+wandb: Tracking run with wandb version 0.23.0
+wandb: Run data is saved locally in /gws/ssde/j25a/mmh_storage/train110/wandb_logs/wandb/run-20251112_204416-1w71vj8c
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run unet3d_himawari_ddp
+wandb: ⭐️ View project at https://wandb.ai/mgrakotomanga-university-of-leeds/pyearthtools-nowcasting
+wandb: 🚀 View run at https://wandb.ai/mgrakotomanga-university-of-leeds/pyearthtools-nowcasting/runs/1w71vj8c
+[rank0]:W1112 20:44:17.570000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 54 hash value: 3651707838465468771
+[rank3]:W1112 20:44:17.575000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+[rank1]:W1112 20:44:17.575000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+[rank2]:W1112 20:44:17.575000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name      | Type          | Params | Mode 
+----------------------------------------------------
+0 | model     | UNet3D        | 5.4 M  | train
+1 | criterion | PooledMSELoss | 0      | train
+----------------------------------------------------
+5.4 M     Trainable params
+0         Non-trainable params
+5.4 M     Total params
+21.733    Total estimated model params size (MB)
+59        Modules in train mode
+0         Modules in eval mode
+[rank: 0] Metric val_loss improved. New best score: 0.067
+[rank: 3] Metric val_loss improved. New best score: 0.053
+[rank: 2] Metric val_loss improved. New best score: 0.058
+[rank: 1] Metric val_loss improved. New best score: 0.050
+[rank0]:W1112 21:11:02.500000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848004
+[rank1]:W1112 21:11:02.504000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848004
+[rank3]:W1112 21:11:02.504000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848004
+[rank2]:W1112 21:11:02.504000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848004
+[rank: 0] Metric val_loss improved by 0.006 >= min_delta = 0.0. New best score: 0.062
+[rank: 1] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.049
+[rank: 3] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.052
+[rank: 2] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.057
+[rank0]:W1112 21:34:00.560000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848069
+[rank1]:W1112 21:34:00.564000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank3]:W1112 21:34:00.564000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank2]:W1112 21:34:00.564000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank: 0] Metric val_loss improved by 0.003 >= min_delta = 0.0. New best score: 0.059
+[rank: 3] Metric val_loss improved by 0.002 >= min_delta = 0.0. New best score: 0.050
+[rank: 2] Metric val_loss improved by 0.002 >= min_delta = 0.0. New best score: 0.055
+[rank: 1] Metric val_loss improved by 0.002 >= min_delta = 0.0. New best score: 0.047
+[rank0]:W1112 22:18:44.766000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848069
+[rank1]:W1112 22:18:44.771000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank3]:W1112 22:18:44.771000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank2]:W1112 22:18:44.771000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank: 0] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.058
+[rank: 1] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.047
+[rank: 2] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.054
+[rank: 0] Metric val_loss improved by 0.002 >= min_delta = 0.0. New best score: 0.057
+[rank: 2] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.054
+[rank: 3] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.049
+[rank0]:W1112 23:26:18.167000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848069
+[rank2]:W1112 23:26:18.172000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank3]:W1112 23:26:18.172000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank1]:W1112 23:26:18.172000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank: 2] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.053
+[rank: 1] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.046
+[rank: 2] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.053
+[rank: 3] Metric val_loss improved by 0.001 >= min_delta = 0.0. New best score: 0.049
+[rank: 1] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.046
+[rank0]:W1113 00:12:49.645000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848069
+[rank2]:W1113 00:12:49.649000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank3]:W1113 00:12:49.649000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank1]:W1113 00:12:49.650000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank: 3] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.048
+[rank: 2] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.053
+[rank: 1] Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.046
+[rank0]:W1113 00:38:07.123000 1569169 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848069
+[rank2]:W1113 00:38:07.127000 1569171 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank3]:W1113 00:38:07.127000 1569172 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank1]:W1113 00:38:07.127000 1569170 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848069
+[rank: 0] Monitored metric val_loss did not improve in the last 5 records. Best score: 0.057. Signaling Trainer to stop.
+[W1113 01:01:08.066174040 ProcessGroupNCCL.cpp:1524] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

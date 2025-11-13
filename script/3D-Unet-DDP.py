@@ -8,7 +8,6 @@ from datetime import timedelta
 # Core libraries
 import numpy as np
 import xarray as xr
-xr.set_options(file_cache_maxsize=2)
 
 # PyEarthTools modules for data access and pipelines
 import pyearthtools.data as petdata
@@ -239,40 +238,88 @@ class NowcastLitModule(pl.LightningModule):
         return torch.optim.Adam(self.parameters(), lr=self.lr)
 
 # Iterable dataset directly reading from PET pipeline
+import os
+from torch.utils.data import get_worker_info
+
 class PetNowcastIterableDataset(IterableDataset):
     def __init__(self, pipeline):
+        super().__init__()
         self.pipeline = pipeline
 
+    def _get_worker_and_rank(self):
+        worker_info = get_worker_info()
+        if worker_info is None:
+            worker_id = 0
+            num_workers = 1
+        else:
+            worker_id = worker_info.id
+            num_workers = worker_info.num_workers
+
+        rank = int(os.environ.get("RANK", "0"))
+        world_size = int(os.environ.get("WORLD_SIZE", "1"))
+
+        global_worker_id = rank * num_workers + worker_id
+        global_num_workers = world_size * num_workers
+        return global_worker_id, global_num_workers
+
     def __iter__(self):
+        worker_id, n_workers_global = self._get_worker_and_rank()
+
         it = iter(self.pipeline.iterator)
-        for t in it:
+        for idx, t in enumerate(it):
+            if idx % n_workers_global != worker_id:
+                continue
+
             try:
                 inputs, outputs = self.pipeline[t]
             except Exception:
                 continue
+
             x = torch.from_numpy(inputs).permute(1, 0, 2, 3).float()
             y = torch.from_numpy(outputs).permute(1, 0, 2, 3).float()
+
             x = torch.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)
             y = torch.nan_to_num(y, nan=0.0, posinf=0.0, neginf=0.0)
+
             yield x, y
 
 
+
 # Training pipeline (1 year), Validation pipeline (1 week)
-trainpipe = make_pipeline("20210101T0000", "20220101T0000")
+trainpipe = make_pipeline("20190101T0000", "20220101T0000")
 valpipe   = make_pipeline("20220101T0000", "20220201T0000")
 
 # Prepare datasets and loaders
 train_ds = PetNowcastIterableDataset(trainpipe)
 val_ds   = PetNowcastIterableDataset(valpipe)
 
+def worker_init_fn(worker_id):
+    import random
+    import numpy as np
+    seed = torch.initial_seed() % 2**32
+    random.seed(seed)
+    np.random.seed(seed)
+
 train_loader = DataLoader(
-    train_ds, batch_size=16, num_workers=8,
-    pin_memory=True, persistent_workers=True, prefetch_factor=4
+    train_ds,
+    batch_size=8,               # start small, you can increase later
+    num_workers=2,              # per rank
+    pin_memory=True,
+    persistent_workers=False,   # important for stability
+    prefetch_factor=2,
+    worker_init_fn=worker_init_fn
 )
+
 val_loader = DataLoader(
-    val_ds, batch_size=16, num_workers=4,
-    pin_memory=True, persistent_workers=True, prefetch_factor=2
+    val_ds,
+    batch_size=8,
+    num_workers=1,
+    pin_memory=True,
+    persistent_workers=False,
+    prefetch_factor=2,
+    worker_init_fn=worker_init_fn
 )
+
 
 # Initialise Lightning model
 lit_model = NowcastLitModule(lr=2e-4)
@@ -293,14 +340,14 @@ early_stop_cb = EarlyStopping(
 # Save checkpoints after each epoch
 checkpoint_cb = ModelCheckpoint(
     dirpath="/gws/ssde/j25a/mmh_storage/train110/chk",
-    filename="unet3d-ddp-nowcast-{epoch:02d}-{val_loss:.4f}",
+    filename="unet3d-ddp-nowcast-final",
     monitor="val_loss",
     mode="min",
     save_top_k=1
 )
 # Lightning trainer configuration
 trainer = pl.Trainer(
-    max_epochs=5,
+    max_epochs=30,
     accelerator="gpu",
     devices=4,
     strategy="ddp",
@@ -310,8 +357,8 @@ trainer = pl.Trainer(
     num_sanity_val_steps=0,
     logger=wandb_logger,
     callbacks=[checkpoint_cb, early_stop_cb],
-    limit_train_batches=160,
-    limit_val_batches=10,
+    limit_train_batches=200,
+    limit_val_batches=20,
 )
 
 # Run training

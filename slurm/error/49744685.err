@@ -1,0 +1,65 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+[W1112 19:52:13.775073815 Utils.hpp:166] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[W1112 19:52:13.775088925 Utils.hpp:137] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+[W1112 19:52:13.849496596 Utils.hpp:166] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[W1112 19:52:13.849515246 Utils.hpp:137] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+[W1112 19:52:13.877643328 Utils.hpp:166] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[W1112 19:52:13.877661917 Utils.hpp:137] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+[W1112 19:52:13.885131924 Utils.hpp:166] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[W1112 19:52:13.885150493 Utils.hpp:137] Warning: Environment variable NCCL_ASYNC_ERROR_HANDLING is deprecated; use TORCH_NCCL_ASYNC_ERROR_HANDLING instead (function operator())
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+[rank0]:W1112 19:52:13.522000 1566288 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 61 hash value: 17528070987312842408
+[rank2]:W1112 19:52:14.114000 1566290 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+[rank3]:W1112 19:52:14.115000 1566291 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+[rank1]:W1112 19:52:14.116000 1566289 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
+wandb: setting up run oxtwd75e
+wandb: Tracking run with wandb version 0.23.0
+wandb: Run data is saved locally in /gws/ssde/j25a/mmh_storage/train110/wandb_logs/wandb/run-20251112_195225-oxtwd75e
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run unet3d_himawari_ddp
+wandb: ⭐️ View project at https://wandb.ai/mgrakotomanga-university-of-leeds/pyearthtools-nowcasting
+wandb: 🚀 View run at https://wandb.ai/mgrakotomanga-university-of-leeds/pyearthtools-nowcasting/runs/oxtwd75e
+[rank0]:W1112 19:52:28.073000 1566288 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 54 hash value: 3651707838465468771
+[rank3]:W1112 19:52:28.077000 1566291 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+[rank2]:W1112 19:52:28.077000 1566290 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+[rank1]:W1112 19:52:28.077000 1566289 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+[rank3]:[W1112 19:52:28.476009360 Utils.hpp:112] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[rank2]:[W1112 19:52:28.476095018 Utils.hpp:112] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[rank1]:[W1112 19:52:28.476124457 Utils.hpp:112] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+[rank0]:[W1112 19:52:28.476220345 Utils.hpp:112] Warning: Environment variable NCCL_BLOCKING_WAIT is deprecated; use TORCH_NCCL_BLOCKING_WAIT instead (function operator())
+
+  | Name      | Type          | Params | Mode 
+----------------------------------------------------
+0 | model     | UNet3D        | 5.4 M  | train
+1 | criterion | PooledMSELoss | 0      | train
+----------------------------------------------------
+5.4 M     Trainable params
+0         Non-trainable params
+5.4 M     Total params
+21.733    Total estimated model params size (MB)
+59        Modules in train mode
+0         Modules in eval mode
+[rank: 0] Metric val_loss improved. New best score: 0.062
+[rank: 1] Metric val_loss improved. New best score: 0.050
+[rank: 2] Metric val_loss improved. New best score: 0.058
+[rank: 3] Metric val_loss improved. New best score: 0.052
+[rank0]:W1112 20:14:22.427000 1566288 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 4 hash value: 1412492854848004
+[rank3]:W1112 20:14:22.431000 1566291 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848004
+[rank1]:W1112 20:14:22.431000 1566289 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848004
+[rank2]:W1112 20:14:22.431000 1566290 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 4 hash value: 1412492854848004
+slurmstepd: error: *** JOB 49744685 ON gpuhost010 CANCELLED AT 2025-11-12T20:28:36 ***

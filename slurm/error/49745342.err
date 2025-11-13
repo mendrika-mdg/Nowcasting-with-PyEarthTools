@@ -1,0 +1,45 @@
+Using 16bit Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+[rank0]:W1112 20:31:52.992000 1567587 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 61 hash value: 17528070987312842408
+[rank3]:W1112 20:31:53.577000 1567590 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+[rank1]:W1112 20:31:53.578000 1567588 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+[rank2]:W1112 20:31:53.578000 1567589 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 61 hash value: 17528070987312842408
+wandb: Currently logged in as: mgrakotomanga (mgrakotomanga-university-of-leeds) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run mzxlzzcx
+wandb: Tracking run with wandb version 0.23.0
+wandb: Run data is saved locally in /gws/ssde/j25a/mmh_storage/train110/wandb_logs/wandb/run-20251112_203154-mzxlzzcx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run unet3d_himawari_ddp
+wandb: ⭐️ View project at https://wandb.ai/mgrakotomanga-university-of-leeds/pyearthtools-nowcasting
+wandb: 🚀 View run at https://wandb.ai/mgrakotomanga-university-of-leeds/pyearthtools-nowcasting/runs/mzxlzzcx
+[rank0]:W1112 20:31:56.293000 1567587 torch/distributed/distributed_c10d.py:3081] _object_to_tensor size: 54 hash value: 3651707838465468771
+[rank3]:W1112 20:31:56.298000 1567590 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+[rank2]:W1112 20:31:56.298000 1567589 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+[rank1]:W1112 20:31:56.298000 1567588 torch/distributed/distributed_c10d.py:3096] _tensor_to_object size: 54 hash value: 3651707838465468771
+LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name      | Type          | Params | Mode 
+----------------------------------------------------
+0 | model     | UNet3D        | 5.4 M  | train
+1 | criterion | PooledMSELoss | 0      | train
+----------------------------------------------------
+5.4 M     Trainable params
+0         Non-trainable params
+5.4 M     Total params
+21.733    Total estimated model params size (MB)
+59        Modules in train mode
+0         Modules in eval mode
+slurmstepd: error: *** JOB 49745342 ON gpuhost010 CANCELLED AT 2025-11-12T20:33:49 ***
